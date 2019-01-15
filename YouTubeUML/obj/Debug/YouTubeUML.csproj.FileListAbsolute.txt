@@ -106,3 +106,8 @@ C:\GIT\YouTubeUML\YouTubeUML\bin\System.Web.Mvc.xml
 C:\GIT\YouTubeUML\YouTubeUML\obj\Debug\YouTubeUML.csprojResolveAssemblyReference.cache
 C:\GIT\YouTubeUML\YouTubeUML\obj\Debug\YouTubeUML.dll
 C:\GIT\YouTubeUML\YouTubeUML\obj\Debug\YouTubeUML.pdb
+C:\GIT\YouTubeUML\YouTubeUML\bin\DAL.dll
+C:\GIT\YouTubeUML\YouTubeUML\bin\EntityFramework.dll
+C:\GIT\YouTubeUML\YouTubeUML\bin\DAL.pdb
+C:\GIT\YouTubeUML\YouTubeUML\bin\DAL.dll.config
+C:\GIT\YouTubeUML\YouTubeUML\bin\EntityFramework.xml

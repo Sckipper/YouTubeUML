@@ -13,5 +13,10 @@ namespace YouTubeUML.Controllers
         {
             return View();
         }
+
+        public ActionResult VideoPage()
+        {
+            return View();
+        }
     }
 }

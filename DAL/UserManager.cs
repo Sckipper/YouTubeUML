@@ -22,5 +22,12 @@ namespace DAL
             }
             return true;
         }
+
+        public static bool UpgradeUser(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }

@@ -1,0 +1,10 @@
+C:\GIT\YouTubeUML\DAL\bin\Debug\DAL.dll.config
+C:\GIT\YouTubeUML\DAL\bin\Debug\DAL.dll
+C:\GIT\YouTubeUML\DAL\bin\Debug\DAL.pdb
+C:\GIT\YouTubeUML\DAL\bin\Debug\EntityFramework.dll
+C:\GIT\YouTubeUML\DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\GIT\YouTubeUML\DAL\bin\Debug\EntityFramework.xml
+C:\GIT\YouTubeUML\DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\GIT\YouTubeUML\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+C:\GIT\YouTubeUML\DAL\obj\Debug\DAL.dll
+C:\GIT\YouTubeUML\DAL\obj\Debug\DAL.pdb
