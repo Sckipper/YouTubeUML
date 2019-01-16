@@ -23,6 +23,11 @@ namespace YouTubeUML
                 "~/Content/JS/modernizr.custom.min.js",
                 "~/Content/JS/responsiveslides.min.js"
             ));
+
+            bundles.Add(new ScriptBundle("~/js/layout").Include(
+                "~/Content/JS/Facade.js",
+                "~/Content/JS/Layout.js"
+            ));
         }
     }
 }

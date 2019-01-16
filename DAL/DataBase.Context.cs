@@ -28,5 +28,6 @@ namespace DAL
         public virtual DbSet<Log> Logs { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Video> Videos { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
     }
 }

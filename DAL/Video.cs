@@ -14,6 +14,12 @@ namespace DAL
     
     public partial class Video
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Video()
+        {
+            this.Comments = new HashSet<Comment>();
+        }
+    
         public int Id { get; set; }
         public string Title { get; set; }
         public string URL { get; set; }
@@ -21,5 +27,9 @@ namespace DAL
         public Nullable<int> Dislikes { get; set; }
         public Nullable<int> Views { get; set; }
         public int UploaderId { get; set; }
+    
+        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

@@ -1,33 +1,22 @@
 ﻿function Facade() {
 
-    $.ajax({
-        accepts: {
-            mycustomtype: 'application/x-some-custom-type'
-        },
+    var CallBackEnd = function (url, type, param, Callback) {
 
-        // Instructions for how to deserialize a `mycustomtype`
-        converters: {
-            'text mycustomtype': function (result) {
-                // Do Stuff
-                return newresult;
-            }
-        },
-
-        // Expect a `mycustomtype` back from server
-        dataType: 'mycustomtype'
-    });
-
-    this.login = function (username, password) {
-
+        console.log("mere")
+        $.ajax({
+            type: type,
+            url: url,
+            data: param ,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: Callback,
+            error: Callback
+        }).done(function (msg) {
+            alert("Data Saved: " + msg);
+        });
     }
 
-    this.signOut = function () {
-
-    }
-
-    this.register = function (username, password, email, userRole) {
-
-    }
+    //CallBackEnd("http://localhost/YouTubeUML/Home/LogOut","GET", "", null)
 
     this.share = function () {
 
@@ -57,4 +46,4 @@
     }
 };
 
-facade = Facade();
+var facade = new Facade();

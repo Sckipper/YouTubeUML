@@ -236,8 +236,9 @@
     <Content Include="Content\JS\jquery-1.11.1.min.js" />
     <Content Include="Content\JS\jquery.magnific-popup.js" />
     <Content Include="Content\JS\jquery.polyglot.language.switcher.js" />
+    <Content Include="Content\JS\Layout.js" />
     <Content Include="Content\JS\modernizr.custom.min.js" />
-    <Content Include="Content\JS\Proxy.js" />
+    <Content Include="Content\JS\Facade.js" />
     <Content Include="Content\JS\responsiveslides.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />

@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class UserManager
+    public static class UserManager
     {
+        public static User LogedUser;
+
         public static bool CreateUser(string username, string password, int type)
         {
             using (var db = new YouTubeUMLEntities())
@@ -28,7 +27,6 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-
         public static bool LoginUser(string username, string password)
         {
             using (var db = new YouTubeUMLEntities())
@@ -36,11 +34,11 @@ namespace DAL
                 User user = db.Users.FirstOrDefault(el => el.UserName.Equals(username) && el.Password.Equals(password));
                 if (user == null)
                     return false;
-            
+
+                LogedUser = user;
             }
+            
             return true;
         }
-
-
     }
 }
