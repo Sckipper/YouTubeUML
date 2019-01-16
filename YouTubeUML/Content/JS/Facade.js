@@ -1,4 +1,4 @@
-﻿function Proxy() {
+﻿function Facade() {
 
     $.ajax({
         accepts: {
@@ -57,4 +57,4 @@
     }
 };
 
-proxy = Proxy();
+facade = Facade();
