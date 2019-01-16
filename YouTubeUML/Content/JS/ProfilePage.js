@@ -1,4 +1,4 @@
-﻿function Layout() {
+﻿function ProfilePage() {
     var elements = {
         uploadButton: $("#uploadButton"),
         signInButton: $("#signIn"),
@@ -10,10 +10,6 @@
         usernameLabel: $("#usernameLabel")
     }
 
-    elements.logOutButton.click(function () {
-
-    });
-
     if (elements.usernameLabel.is(":visible")) {
         elements.uploadButton.show();
         elements.logOutButton.show();
@@ -23,5 +19,3 @@
     }
 
 }
-
-var layout = new Layout();

@@ -25,10 +25,6 @@
     this.uploadVideo = function (fileName, filePath, fileSize, fileExtension) {
     }
 
-    this.getVideo = function (videoId) {
-
-    }
-
     this.addComment = function (comment, videoId) {
 
     }
