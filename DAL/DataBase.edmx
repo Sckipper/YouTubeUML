@@ -5,8 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="YouTubeUMLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'YouTubeUML.dbo.Comments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Comments">
           <Key>
             <PropertyRef Name="Id" />
@@ -97,17 +95,10 @@ warning 6002: The table/view 'YouTubeUML.dbo.Comments' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="YouTubeUMLModelStoreContainer">
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Comments" EntityType="Self.Comments" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Comments].[Id] AS [Id], 
-    [Comments].[VideoId] AS [VideoId], 
-    [Comments].[Message] AS [Message], 
-    [Comments].[UserId] AS [UserId]
-    FROM [dbo].[Comments] AS [Comments]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__Comments__UserId__3F466844" Association="Self.FK__Comments__UserId__3F466844">
             <End Role="Users" EntitySet="Users" />
             <End Role="Comments" EntitySet="Comments" />
@@ -130,6 +121,19 @@ warning 6002: The table/view 'YouTubeUML.dbo.Comments' does not have a primary k
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="YouTubeUMLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="VideoId" />
+            <PropertyRef Name="Message" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VideoId" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Comments__UserId__3F466844" FromRole="Comments" ToRole="Users" />
+          <NavigationProperty Name="Video" Relationship="Self.FK__Comments__VideoI__3E52440B" FromRole="Comments" ToRole="Videos" />
+        </EntityType>
         <EntityType Name="Log">
           <Key>
             <PropertyRef Name="Id" />
@@ -148,8 +152,8 @@ warning 6002: The table/view 'YouTubeUML.dbo.Comments' does not have a primary k
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Type" Type="Int32" />
-          <NavigationProperty Name="Logs" Relationship="Self.FK__Logs__UserId__398D8EEE" FromRole="Users" ToRole="Logs" />
           <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__UserId__3F466844" FromRole="Users" ToRole="Comments" />
+          <NavigationProperty Name="Logs" Relationship="Self.FK__Logs__UserId__398D8EEE" FromRole="Users" ToRole="Logs" />
           <NavigationProperty Name="Videos" Relationship="Self.FK__Videos__Uploader__3C69FB99" FromRole="Users" ToRole="Videos" />
         </EntityType>
         <EntityType Name="Video">
@@ -163,34 +167,9 @@ warning 6002: The table/view 'YouTubeUML.dbo.Comments' does not have a primary k
           <Property Name="Dislikes" Type="Int32" />
           <Property Name="Views" Type="Int32" />
           <Property Name="UploaderId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Videos__Uploader__3C69FB99" FromRole="Videos" ToRole="Users" />
           <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__VideoI__3E52440B" FromRole="Videos" ToRole="Comments" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Videos__Uploader__3C69FB99" FromRole="Videos" ToRole="Users" />
         </EntityType>
-        <EntityType Name="Comment">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="VideoId" />
-            <PropertyRef Name="Message" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VideoId" Type="Int32" Nullable="false" />
-          <Property Name="Message" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Comments__UserId__3F466844" FromRole="Comments" ToRole="Users" />
-          <NavigationProperty Name="Video" Relationship="Self.FK__Comments__VideoI__3E52440B" FromRole="Comments" ToRole="Videos" />
-        </EntityType>
-        <Association Name="FK__Logs__UserId__398D8EEE">
-          <End Role="Users" Type="Self.User" Multiplicity="1" />
-          <End Role="Logs" Type="Self.Log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Logs">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Comments__UserId__3F466844">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
@@ -199,6 +178,30 @@ warning 6002: The table/view 'YouTubeUML.dbo.Comments' does not have a primary k
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comments__VideoI__3E52440B">
+          <End Role="Videos" Type="Self.Video" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Logs__UserId__398D8EEE">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Logs" Type="Self.Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Logs">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -215,38 +218,26 @@ warning 6002: The table/view 'YouTubeUML.dbo.Comments' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comments__VideoI__3E52440B">
-          <End Role="Videos" Type="Self.Video" Multiplicity="1" />
-          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Videos">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Comments">
-              <PropertyRef Name="VideoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="YouTubeUMLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="Logs" EntityType="Self.Log" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Videos" EntityType="Self.Video" />
-          <EntitySet Name="Comments" EntityType="Self.Comment" />
-          <AssociationSet Name="FK__Logs__UserId__398D8EEE" Association="Self.FK__Logs__UserId__398D8EEE">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Logs" EntitySet="Logs" />
-          </AssociationSet>
           <AssociationSet Name="FK__Comments__UserId__3F466844" Association="Self.FK__Comments__UserId__3F466844">
             <End Role="Users" EntitySet="Users" />
             <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Videos__Uploader__3C69FB99" Association="Self.FK__Videos__Uploader__3C69FB99">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Videos" EntitySet="Videos" />
-          </AssociationSet>
           <AssociationSet Name="FK__Comments__VideoI__3E52440B" Association="Self.FK__Comments__VideoI__3E52440B">
             <End Role="Videos" EntitySet="Videos" />
             <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Logs__UserId__398D8EEE" Association="Self.FK__Logs__UserId__398D8EEE">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Videos__Uploader__3C69FB99" Association="Self.FK__Videos__Uploader__3C69FB99">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Videos" EntitySet="Videos" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -255,6 +246,16 @@ warning 6002: The table/view 'YouTubeUML.dbo.Comments' does not have a primary k
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="YouTubeUMLModelStoreContainer" CdmEntityContainer="YouTubeUMLEntities">
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="YouTubeUMLModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Logs">
             <EntityTypeMapping TypeName="YouTubeUMLModel.Log">
               <MappingFragment StoreEntitySet="Logs">
@@ -285,16 +286,6 @@ warning 6002: The table/view 'YouTubeUML.dbo.Comments' does not have a primary k
                 <ScalarProperty Name="Dislikes" ColumnName="Dislikes" />
                 <ScalarProperty Name="Views" ColumnName="Views" />
                 <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="YouTubeUMLModel.Comment">
-              <MappingFragment StoreEntitySet="Comments">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

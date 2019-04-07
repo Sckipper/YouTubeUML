@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5673f315bd0f4bd3b81ab1c4607be9b0" Name="Diagram1">
-        <EntityTypeShape EntityType="YouTubeUMLModel.Log" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+      <Diagram DiagramId="9f3b2ca5b72046e29a36169a5d810f3e" Name="Diagram1">
+        <EntityTypeShape EntityType="YouTubeUMLModel.Comment" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="YouTubeUMLModel.Log" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="YouTubeUMLModel.User" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="YouTubeUMLModel.Video" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="YouTubeUMLModel.Comment" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
-        <AssociationConnector Association="YouTubeUMLModel.FK__Logs__UserId__398D8EEE" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="YouTubeUMLModel.Video" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
         <AssociationConnector Association="YouTubeUMLModel.FK__Comments__UserId__3F466844" ManuallyRouted="false" />
-        <AssociationConnector Association="YouTubeUMLModel.FK__Videos__Uploader__3C69FB99" ManuallyRouted="false" />
         <AssociationConnector Association="YouTubeUMLModel.FK__Comments__VideoI__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="YouTubeUMLModel.FK__Logs__UserId__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="YouTubeUMLModel.FK__Videos__Uploader__3C69FB99" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
