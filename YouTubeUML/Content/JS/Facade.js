@@ -1,22 +1,18 @@
 ﻿function Facade() {
 
     var CallBackEnd = function (url, type, param, Callback) {
-
-        console.log("mere")
         $.ajax({
             type: type,
             url: url,
-            data: param ,
+            data: param,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: Callback,
-            error: Callback
-        }).done(function (msg) {
-            alert("Data Saved: " + msg);
+            success: function () { console.log("m") },
+            error: function (error) {
+                console.log(error.responseText)
+            }
         });
     }
-
-    //CallBackEnd("http://localhost/YouTubeUML/Home/LogOut","GET", "", null)
 
     this.share = function () {
 
@@ -30,11 +26,13 @@
     }
 
     this.likeVideo = function (videoId) {
-
+        var data = "{ 'vid': '" + videoId + "'}"
+        CallBackEnd("http://localhost/YouTubeUML/Home/LikeVideo", "POST", data, null)
     }
 
     this.dislikeVideo = function (videoId) {
-
+        var data = "{ 'vid': '" + videoId + "'}"
+        CallBackEnd("http://localhost/YouTubeUML/Home/DislikeVideo", "POST", data, null)
     }
 
     this.logAction = function (username, action) {
