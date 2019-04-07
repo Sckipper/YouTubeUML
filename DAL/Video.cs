@@ -28,8 +28,8 @@ namespace DAL
         public Nullable<int> Views { get; set; }
         public int UploaderId { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual User User { get; set; }
     }
 }

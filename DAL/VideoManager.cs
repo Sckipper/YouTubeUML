@@ -44,12 +44,12 @@ namespace DAL
             return true;
         }
 
-        public static bool UnlikeVideo(int id)
+        public static bool DislikeVideo(int id)
         {
             using (var db = new YouTubeUMLEntities())
             {
                 Video video = db.Videos.FirstOrDefault(el => el.Id == id);
-                video.Likes = --video.Likes;
+                video.Dislikes = ++video.Dislikes;
                 db.SaveChanges();
             }
 
