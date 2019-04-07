@@ -26,7 +26,8 @@ namespace YouTubeUML
 
             bundles.Add(new ScriptBundle("~/js/layout").Include(
                 "~/Content/JS/Facade.js",
-                "~/Content/JS/Layout.js"
+                "~/Content/JS/ProfilePage.js",
+                "~/Content/JS/VideoPage.js"
             ));
         }
     }
