@@ -17,5 +17,5 @@
         elements.signInButton.show();
         elements.signOutButton.show();
     }
-
 }
+var pp = new ProfilePage();
