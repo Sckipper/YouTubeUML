@@ -32,6 +32,18 @@ namespace YouTubeUML.Controllers
         }
 
         [HttpPost]
+        public void LikeVideo(int vid)
+        {
+            VideoManager.LikeVideo(vid);
+        }
+
+        [HttpPost]
+        public void DislikeVideo(int vid)
+        {
+            VideoManager.DislikeVideo(vid);
+        }
+
+        [HttpPost]
         public ActionResult SignUp(string username, string password)
         {
             UserManager.CreateUser(username, password, 1);
