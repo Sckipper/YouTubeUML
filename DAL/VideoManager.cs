@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DAL
 {
@@ -60,24 +61,34 @@ namespace DAL
         {
             using (var db = new YouTubeUMLEntities())
             {
-                Comment comment = new Comment();
+                if(db.Videos.FirstOrDefault(el => el.Id == vid) != null)
+                {
+                    Comment comment = new Comment();
 
-                comment.Message = msg;
-                comment.UserId = uid;
-                comment.VideoId = vid;
+                    comment.Message = msg;
+                    comment.UserId = uid;
+                    comment.VideoId = vid;
 
-                db.SaveChanges();
+                    db.Comments.Add(comment);
+                    db.SaveChanges();
+                }
             }
 
             return true;
         }
 
-        public static List<Comment> GetComments(int vid)
+        public static string GetComments(int vid)
         {
+            var list = new List<Comment>();
+            string result;
             using (var db = new YouTubeUMLEntities())
             {
-                return db.Comments.Where(el => el.VideoId == vid).ToList();
+                db.Configuration.LazyLoadingEnabled = false;
+                list = db.Comments.Where(el => el.VideoId == vid).OrderByDescending(x => x.Id).ToList();
+                result = JsonConvert.SerializeObject(list, Formatting.Indented);
             }
+
+            return result;
         }
 
         public static bool DeleteVideo(int id)
@@ -94,5 +105,31 @@ namespace DAL
 
             return true;
         }
+
+        public static int GetVideoLikes(int id)
+        {
+            using (var db = new YouTubeUMLEntities())
+            {
+                Video video = db.Videos.FirstOrDefault(el => el.Id == id);
+                if (video != null)
+                    return (int)video.Likes;
+            }
+
+            return 0;
+        }
+
+        public static int GetVideoDislikes(int id)
+        {
+            using (var db = new YouTubeUMLEntities())
+            {
+                Video video = db.Videos.FirstOrDefault(el => el.Id == id);
+                if (video != null)
+                    return (int)video.Dislikes;
+            }
+
+            return 0;
+        }
+
+       
     }
 }
